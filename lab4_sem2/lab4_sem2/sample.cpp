@@ -7,3 +7,10 @@
 
 #include "sample.hpp"
 
+vector<int8_t> Samples::getSample() {
+    return sampleSet;
+}
+
+void Samples::changeSampl(int n) {
+    
+}
