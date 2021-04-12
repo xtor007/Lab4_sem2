@@ -1,12 +1,12 @@
 //
-//  sempls.hpp
+//  sample.hpp
 //  lab4_sem2
 //
 //  Created by Anatoliy Khramchenko on 12.04.2021.
 //
 
-#ifndef sempls_hpp
-#define sempls_hpp
+#ifndef semple_hpp
+#define semple_hpp
 
 #include <stdio.h>
 #include <iostream>
@@ -17,10 +17,10 @@ using namespace std;
 class Samples {
     vector<int8_t> sampleSet;
 public:
-    Samples (vector<int8_t> newSampleSet);
+    Samples (vector<int8_t> newSampleSet) {sampleSet = newSampleSet;}
     vector<int8_t> getSample();
-    void changeSampl(int n);
+    void changeSampl(float n);
 };
 
 
-#endif /* sempls_hpp */
+#endif /* semple_hpp */
