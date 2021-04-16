@@ -17,8 +17,8 @@ using namespace std;
 class Samples {
     vector<int8_t> sampleSet;
 public:
-    Samples (vector<int8_t> newSampleSet) {sampleSet = newSampleSet;}
-    vector<int8_t> getSample();
+    Samples (int8_t *newSampleSet, int numberOfSampls);
+    void getSample(int8_t *fileSamlesSet);
     void changeSampl(float n);
 };
 

@@ -11,14 +11,11 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    vector<int8_t> k;
-    k.push_back(0x02);
-    k.push_back(0x04);
-    k.push_back(0x04);
-    k.push_back('\x07');
-    Samples kk = Samples(k);
+    int8_t k[3] = {'\x02','\x04','\x03'};
+    Samples kk = Samples(k, 3);
     kk.changeSampl(2);
-    vector<int8_t> kkk = kk.getSample();
+    int8_t kkk[5];
+    kk.getSample(kkk);
     
     return 0;
 }
