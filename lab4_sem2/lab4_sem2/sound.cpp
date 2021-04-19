@@ -22,11 +22,11 @@ waveReader::waveReader(){
 RIFFHEADER waveReader::getHeader(){
     RIFFHEADER riffHead;
     fread(&riffHead, sizeof(riffHead), 1, audiofile);
-    if (riffHead.chunkId != 1179011410) {   // decimal FOURCC-code of "RIFF"-note in .wav
+    if (riffHead.chunkId != 1179011410) {   // decimal FOURCC-code of "RIFF"-note in .wav (little-endian)
         cout<<"The file format doesn't match.\n";
         exit(9);
     }
-    if (riffHead.format != 1163280727){     // decimal WAVE-identifier in .wav
+    if (riffHead.format != 1163280727){     // decimal WAVE-identifier in .wav (little-endian)
         cout<<"The file audioformat doesn't match.\n";
         exit(9);
     };
@@ -36,6 +36,10 @@ RIFFHEADER waveReader::getHeader(){
 SUBCHUNK1 waveReader::getFMTdescription(){
     SUBCHUNK1 formatDescription;
     fread(&formatDescription, sizeof(formatDescription), 1, audiofile);
+    if (formatDescription.subchunk1Id != 544501094) {  // 544501094 is int32_t for little-endian 0x666d7420("fmt"-letters)
+        cout<<"Wrong subchunk ID\n"<<endl;
+        exit(9);
+    }
     return formatDescription;
 }
 
