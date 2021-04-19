@@ -38,3 +38,9 @@ SUBCHUNK1 waveReader::getFMTdescription(){
     fread(&formatDescription, sizeof(formatDescription), 1, audiofile);
     return formatDescription;
 }
+
+SUBCHUNK2 waveReader::getData(){
+    SUBCHUNK2 data;
+    fread(&data, sizeof(data), 1, audiofile);
+    return data;
+}

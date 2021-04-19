@@ -47,6 +47,7 @@ private:
     waveReader();
     RIFFHEADER getHeader();
     SUBCHUNK1 getFMTdescription();
+    SUBCHUNK2 getData();
 };
 
 
@@ -57,6 +58,8 @@ private:
 public:
     // fields
     friend class reader;
+    int sizeOfSample;
+    int numberOfSamples;
     RIFFHEADER riffHeader;
     SUBCHUNK1 fmtChunk;
     SUBCHUNK2 dataChunk;
@@ -65,6 +68,9 @@ public:
         waveReader readResult;
         riffHeader = readResult.getHeader();
         fmtChunk = readResult.getFMTdescription();
+        dataChunk = readResult.getData();
+        sizeOfSample = fmtChunk.byteRate/(fmtChunk.sampleRate*fmtChunk.numChannels);
+        numberOfSamples = dataChunk.subchunk2Size / sizeOfSample;
     }
     void print(){
         cout<<"\n\t===Reading RIFF-header===\n";
@@ -75,6 +81,8 @@ public:
         cout<<"SubChunk1ID: "<<fmtChunk.subchunk1Id<<endl;
         cout<<"SubChunk1 Size: "<<fmtChunk.subchunk1Size<<endl;
         cout<<"Byterate: "<<fmtChunk.byteRate<<endl;
+        cout<<"SizeOfSample: "<<sizeOfSample<<endl;
+        cout<<"NumberOfSamples: "<<numberOfSamples<<endl;
     }
 };
 
