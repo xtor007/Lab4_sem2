@@ -40,4 +40,34 @@ typedef struct{
     //int8_t[] data;
 } SUBCHUNK2;
 
+class waveReader{
+private:
+    friend class sound;
+    FILE *audiofile;
+    waveReader(string path){
+        audiofile = fopen(path.c_str(), "rb");
+        cout<<"Your path is: "<<path<<endl;
+        if (!audiofile) {
+            cout<<"We cannot open it!\n";
+            exit(1);
+        }
+    }
+    RIFFHEADER getHeader();
+
+};
+
+
+
+class sound{
+private:
+public:
+    // fields
+    friend class reader;
+    RIFFHEADER header;
+    SUBCHUNK1 info;
+    SUBCHUNK2 dataInfo;
+};
+
+
+
 #endif /* sound_hpp */
