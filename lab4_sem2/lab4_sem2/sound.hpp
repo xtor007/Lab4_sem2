@@ -46,6 +46,7 @@ private:
     FILE *audiofile;
     waveReader();
     RIFFHEADER getHeader();
+    SUBCHUNK1 getFMTdescription();
 };
 
 
@@ -56,18 +57,24 @@ private:
 public:
     // fields
     friend class reader;
-    RIFFHEADER header;
-    SUBCHUNK1 info;
-    SUBCHUNK2 dataInfo;
+    RIFFHEADER riffHeader;
+    SUBCHUNK1 fmtChunk;
+    SUBCHUNK2 dataChunk;
     
     void read(){
         waveReader readResult;
-        header = readResult.getHeader();
+        riffHeader = readResult.getHeader();
+        fmtChunk = readResult.getFMTdescription();
     }
     void print(){
-        cout<<header.chunkId<<endl;
-        cout<<header.chunkSize + sizeof(header.chunkSize) + sizeof(header.chunkId)<<endl;
-        cout<<header.format<<endl;
+        cout<<"\n\t===Reading RIFF-header===\n";
+        cout<<"ChunkID: "<<riffHeader.chunkId<<endl;
+        cout<<"Size of file(chunkSize+chunkSize&chunkID statements sizes): "<<riffHeader.chunkSize + sizeof(riffHeader.chunkSize) + sizeof(riffHeader.chunkId)<<endl;
+        cout<<"FormatID: "<<riffHeader.format<<endl;
+        cout<<"\n\t===Reading FMT-subchunk===\n";
+        cout<<"SubChunk1ID: "<<fmtChunk.subchunk1Id<<endl;
+        cout<<"SubChunk1 Size: "<<fmtChunk.subchunk1Size<<endl;
+        cout<<"Byterate: "<<fmtChunk.byteRate<<endl;
     }
 };
 

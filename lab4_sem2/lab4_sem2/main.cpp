@@ -10,6 +10,8 @@
 #include "sample.hpp"
 using namespace std;
 
-int main(int argc, const char * argv[]) {
-    return 0;
+int main(){
+    sound test;
+    test.read();
+    test.print();
 }

@@ -33,3 +33,8 @@ RIFFHEADER waveReader::getHeader(){
     return riffHead;
 }
 
+SUBCHUNK1 waveReader::getFMTdescription(){
+    SUBCHUNK1 formatDescription;
+    fread(&formatDescription, sizeof(formatDescription), 1, audiofile);
+    return formatDescription;
+}
