@@ -44,16 +44,10 @@ class waveReader{
 private:
     friend class sound;
     FILE *audiofile;
-    waveReader(string path){
-        audiofile = fopen(path.c_str(), "rb");
-        cout<<"Your path is: "<<path<<endl;
-        if (!audiofile) {
-            cout<<"We cannot open it!\n";
-            exit(1);
-        }
-    }
+    waveReader();
     RIFFHEADER getHeader();
 };
+
 
 
 
@@ -65,6 +59,16 @@ public:
     RIFFHEADER header;
     SUBCHUNK1 info;
     SUBCHUNK2 dataInfo;
+    
+    void read(){
+        waveReader readResult;
+        header = readResult.getHeader();
+    }
+    void print(){
+        cout<<header.chunkId<<endl;
+        cout<<header.chunkSize + sizeof(header.chunkSize) + sizeof(header.chunkId)<<endl;
+        cout<<header.format<<endl;
+    }
 };
 
 
