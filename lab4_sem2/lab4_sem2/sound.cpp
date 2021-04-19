@@ -44,3 +44,12 @@ SUBCHUNK2 waveReader::getData(){
     fread(&data, sizeof(data), 1, audiofile);
     return data;
 }
+
+template <typename int_size> int_size waveReader::*getSampleSet(int16_t bitsPerSample, int numberOfSamples){
+    int_size *result = new int_size[numberOfSamples];
+        for (int i = 0; i < numberOfSamples; i++) {
+            fread(&result, bitsPerSample/8, 1, audiofile);
+            cout<<i<<endl;
+        }
+    return result;
+}

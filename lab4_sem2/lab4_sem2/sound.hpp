@@ -41,13 +41,13 @@ typedef struct{
 } SUBCHUNK2;
 
 class waveReader{
-private:
     friend class sound;
     FILE *audiofile;
     waveReader();
     RIFFHEADER getHeader();
     SUBCHUNK1 getFMTdescription();
     SUBCHUNK2 getData();
+    template <typename int_size> int_size *getSampleSet(int16_t bitsPerSample, int numberOfSamples);
 };
 
 
@@ -57,12 +57,14 @@ class sound{
 private:
 public:
     // fields
-    friend class reader;
     int sizeOfSample;
     int numberOfSamples;
+    int8_t* sampleSet8b;
+    int16_t* sampleSet16b;
     RIFFHEADER riffHeader;
     SUBCHUNK1 fmtChunk;
     SUBCHUNK2 dataChunk;
+    
     
     void read(){
         waveReader readResult;
@@ -71,6 +73,16 @@ public:
         dataChunk = readResult.getData();
         sizeOfSample = fmtChunk.byteRate/(fmtChunk.sampleRate*fmtChunk.numChannels);
         numberOfSamples = dataChunk.subchunk2Size / sizeOfSample;
+        if (fmtChunk.bitsPerSample == 8) {
+
+                sampleSet8b = readResult.getSampleSet<int8_t>(fmtChunk.bitsPerSample, numberOfSamples);
+            
+        }
+        if (fmtChunk.bitsPerSample == 16) {
+
+                sampleSet16b = readResult.getSampleSet<int16_t>(fmtChunk.bitsPerSample, numberOfSamples);
+
+        }
     }
     void print(){
         cout<<"\n\t===Reading RIFF-header===\n";
@@ -83,6 +95,16 @@ public:
         cout<<"Byterate: "<<fmtChunk.byteRate<<endl;
         cout<<"SizeOfSample: "<<sizeOfSample<<endl;
         cout<<"NumberOfSamples: "<<numberOfSamples<<endl;
+        if (fmtChunk.bitsPerSample == 8) {
+            for (int i = 0; i < numberOfSamples; i++) {
+                cout<<sampleSet8b[i]<<", "<<endl;
+            }
+        }
+        if (fmtChunk.bitsPerSample == 16) {
+            for (int i = 0; i < numberOfSamples; i++) {
+                cout<<i<<"]"<<sampleSet16b[i]<<", "<<endl;
+            }
+        }
     }
 };
 
