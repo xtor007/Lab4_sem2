@@ -13,12 +13,17 @@
 #include <vector>
 using namespace std;
 
-
+template <class T>
 class Samples {
-    vector<int8_t> sampleSet;
+    vector<int8_t> sampleSet8;
+    vector<int16_t> sampleSet16;
+    int16_t typeOfSampl;
 public:
-    Samples (int8_t *newSampleSet, int numberOfSampls);
-    void getSample(int8_t *fileSamlesSet);
+
+    Samples (T newSampleSet, int numberOfSampls, int16_t bitsPerSample);
+    
+    void getSample(T fileSamlesSet);
+    
     void changeSampl(float n);
 };
 
