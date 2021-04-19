@@ -21,7 +21,6 @@ class Samples {
 public:
 
     Samples (T newSampleSet, int numberOfSampls, int16_t bitsPerSample);
-    Samples () {}
     
     void getSample(T fileSamlesSet);
     
