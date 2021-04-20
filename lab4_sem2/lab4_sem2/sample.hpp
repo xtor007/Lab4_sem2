@@ -12,13 +12,13 @@ class Samples {
     friend class Interface;
     vector<T> sampleSet8;
     vector<T> sampleSet16;
-    int16_t typeOfSampl;
+    int16_t typeOfSampl; // 8 или 16
     
     Samples (vector<T> newSampleSet, int16_t bitsPerSample);
     
-    vector<T> getSample();
+    vector<T> getSample(); //возвращает семплы
     
-    void changeSampl(float n);
+    void changeSampl(float n); //интерполяция
 };
 
 
