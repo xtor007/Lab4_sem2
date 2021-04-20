@@ -38,8 +38,7 @@ typedef struct{
 class WaveReader{
     friend class Sound;  // being incapsulated, only class sound has permissoin to work with waveReader class
     
-    //Interface message;
-    FILE *audiofile;
+    FILE *audiofile; // out binary file
     string directoryPath;
     
     WaveReader(string path);
@@ -76,16 +75,17 @@ class Sound{
     // here, you can insert <void print()> method
     void write(string pathFolder, string outFileName);
     
+    // rewriting external vector with samples(after linear interpolation)
     template <typename intn_t>
     void swapVectors(vector<intn_t> vector){
         switch (sizeOfSample) {
-            case 1:
-                sampleSet8b.resize(vector.size());
+            case 1: // size of each sample is equal to 1(8 bit)
+                sampleSet8b.resize(vector.size()); // setting vector size equal to vector with samples
                 for (int i = 0; i < vector.size(); i++) {
-                    sampleSet8b[i] = vector[i];
+                    sampleSet8b[i] = vector[i]; // rewriting
                 }
                 break;
-            case 2:
+            case 2: // 16 bit -> analogically
                 sampleSet16b.resize(vector.size());
                 for (int i = 0; i < vector.size(); i++) {
                     sampleSet16b[i] = vector[i];
