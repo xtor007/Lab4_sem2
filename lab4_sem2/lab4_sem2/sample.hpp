@@ -15,14 +15,14 @@ using namespace std;
 
 template <class T>
 class Samples {
-    vector<int8_t> sampleSet8;
-    vector<int16_t> sampleSet16;
+    vector<T> sampleSet8;
+    vector<T> sampleSet16;
     int16_t typeOfSampl;
 public:
 
-    Samples (T newSampleSet, int numberOfSampls, int16_t bitsPerSample);
+    Samples (vector<T> newSampleSet, int16_t bitsPerSample);
     
-    void getSample(T fileSamlesSet);
+    vector<T> getSample();
     
     void changeSampl(float n);
 };

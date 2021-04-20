@@ -5,31 +5,30 @@
 //  Created by Anatoliy Khramchenko on 12.04.2021.
 //
 
+
 #include "sample.hpp"
 
 template <typename T>
-void Samples<T>::getSample(T fileSamlesSet) {
+vector<T> Samples<T>::getSample() {
     if (typeOfSampl == 8) {
-        for (int i=0; i<sampleSet8.size(); i++) {
-            fileSamlesSet[i] = sampleSet8[i];
-        }
+        return sampleSet8;
     } else {
-        for (int i=0; i<sampleSet16.size(); i++) {
-            fileSamlesSet[i] = sampleSet16[i];
-        }
+        return sampleSet16;
     }
 }
 
 template <typename T>
-Samples<T>::Samples (T newSampleSet, int numberOfSampls, int16_t bitsPerSample) {
+Samples<T>::Samples (vector<T> newSampleSet, int16_t bitsPerSample) {
     typeOfSampl = bitsPerSample;
     if (typeOfSampl == 8) {
-        for (int i=0; i<numberOfSampls; i++) {
-            sampleSet8.push_back(newSampleSet[i]);
+        sampleSet8.resize(newSampleSet.size());
+        for (int i = 0; i < newSampleSet.size(); i++) {
+            sampleSet8[i] = newSampleSet[i];
         }
     } else {
-        for (int i=0; i<numberOfSampls; i++) {
-            sampleSet16.push_back(newSampleSet[i]);
+        sampleSet16.resize(newSampleSet.size());
+        for (int i = 0; i < newSampleSet.size(); i++) {
+            sampleSet16[i] = newSampleSet[i];
         }
     }
 }
@@ -39,8 +38,8 @@ template <typename T>
 void Samples<T>::changeSampl(float n) {
     n = 1/n;
     float posSimpl = 0;
-    vector<int8_t> newSampleSet8;
-    vector<int16_t> newSampleSet16;
+    vector<T> newSampleSet8;
+    vector<T> newSampleSet16;
     if (typeOfSampl == 8) {
         int endOfSegment = int(sampleSet8.size()-1);
         while (posSimpl <= endOfSegment) {
@@ -65,3 +64,4 @@ void Samples<T>::changeSampl(float n) {
         sampleSet16 = newSampleSet16;
     }
 }
+
