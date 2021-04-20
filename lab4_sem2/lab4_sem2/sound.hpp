@@ -44,6 +44,7 @@ typedef struct{
 class waveReader{
     friend class sound;  // being incapsulated, only class sound has permissoin to work with waveReader class
     FILE *audiofile;
+    string path;
     waveReader();
     RIFFHEADER getHeader();  // getting RIFF-statements
     SUBCHUNK1 getFMTdescription(); // getting FMT-descriptions
@@ -57,6 +58,7 @@ class waveReader{
 class sound{
 public:
     // === Fields ===
+    string path;
     int sizeOfSample;  // size of 1 sample (commonly, 1 or 2 bytes)
     int numberOfSamples; // number of samples in a track
     int8_t* sampleSet8b; // for case if bytes per 1 sample is equal to 8 -> array of samples
@@ -68,19 +70,12 @@ public:
     //=== METHODS ===
     
     // reading audiofile
-    void read(){
-        waveReader readResult;
-        riffHeader = readResult.getHeader();
-        fmtChunk = readResult.getFMTdescription();
-        dataChunk = readResult.getData();
-        sizeOfSample = fmtChunk.byteRate/(fmtChunk.sampleRate*fmtChunk.numChannels);
-        numberOfSamples = dataChunk.subchunk2Size / sizeOfSample;
-        if (fmtChunk.bitsPerSample == 8)
-                sampleSet8b = readResult.getSampleSet<int8_t>(fmtChunk.bitsPerSample, numberOfSamples);
-        if (fmtChunk.bitsPerSample == 16)
-                sampleSet16b = readResult.getSampleSet<int16_t>(fmtChunk.bitsPerSample, numberOfSamples);
-    }
+    void read();
     // here, you can insert <void print()> method
+    void write();
+    
+    template <typename intn_t>
+    void writeFile(intn_t* sampleSetN_t);
 };
 
 
