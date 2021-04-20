@@ -1,21 +1,21 @@
-#include "sound.hpp"
+#include "Sound.hpp"
 
-waveReader::waveReader(){
-        cout<<"Enter a path to your file: \n";
-        getline(cin, directoryPath);
+WaveReader::WaveReader(string path){ 
+//        cout<<"Enter a path to your file: \n";
+//        getline(cin, directoryPath);
 //        cout<<"Enter a name of the file to read: \n";
 //        getline(cin, input);
 //        cout<<"Enter a name of the file to write: \n";
 //        getline(cin, output);
-        audiofile = fopen((directoryPath+input).c_str(), "rb");
-        cout<<"Your path is: "<<(directoryPath+input)<<endl;
+        audiofile = fopen((path).c_str(), "rb"); 
+//        cout<<"Your path is: "<<(directoryPath+input)<<endl;
         if (!audiofile) {
-            cout<<"We cannot open it!\n";
+            //message.printMessage("We cannot open it!\n");
             exit(1);
         }
 }
 
-RIFFHEADER waveReader::getHeader(){
+RIFFHEADER WaveReader::getHeader(){
     RIFFHEADER riffHead;
     fread(&riffHead, sizeof(riffHead), 1, audiofile);
     if (riffHead.chunkId != 1179011410) {   // decimal FOURCC-code of "RIFF"-note in .wav (little-endian)
@@ -29,7 +29,7 @@ RIFFHEADER waveReader::getHeader(){
     return riffHead;
 }
 
-SUBCHUNK1 waveReader::getFMTdescription(){
+SUBCHUNK1 WaveReader::getFMTdescription(){
     SUBCHUNK1 formatDescription;
     fread(&formatDescription, sizeof(formatDescription), 1, audiofile);
     if (formatDescription.subchunk1Id != 544501094) {  // 544501094 is int32_t for little-endian 0x666d7420("fmt"-letters)
@@ -39,13 +39,13 @@ SUBCHUNK1 waveReader::getFMTdescription(){
     return formatDescription;
 }
 
-SUBCHUNK2 waveReader::getData(){
+SUBCHUNK2 WaveReader::getData(){
     SUBCHUNK2 data;
     fread(&data, sizeof(data), 1, audiofile);
     return data;
 }
 
-template <typename int_size> vector<int_size> waveReader::getSampleSet(int16_t bitsPerSample, int numberOfSamples){
+template <typename int_size> vector<int_size> WaveReader::getSampleSet(int16_t bitsPerSample, int numberOfSamples){
     vector <int_size> result;
     result.resize(numberOfSamples);
     for (int i = 0; i < numberOfSamples; i++) {
@@ -54,9 +54,10 @@ template <typename int_size> vector<int_size> waveReader::getSampleSet(int16_t b
     return result;
 }
 
-void sound::read(){
-    waveReader readResult;
-    path = readResult.directoryPath + readResult.output;
+void Sound::read(string pathFolder, string inFile){
+    path = pathFolder + inFile;
+    WaveReader readResult(path);
+    //path = readResult.directoryPath + readResult.output;
     riffHeader = readResult.getHeader();
     fmtChunk = readResult.getFMTdescription();
     dataChunk = readResult.getData();
@@ -68,18 +69,19 @@ void sound::read(){
             sampleSet16b = readResult.getSampleSet<int16_t>(fmtChunk.bitsPerSample, numberOfSamples);
 }
 
-void sound::write(){
-    if (sizeOfSample == 1) writeFile(sampleSet8b);
-    else if (sizeOfSample == 2) writeFile(sampleSet16b);
-    else cout<<"We cannot write samples into file because the size of each sample is wrong\n";
-}
+//void Sound::write(){
+//    if (sizeOfSample == 1) writeFile(sampleSet8b);
+//    else if (sizeOfSample == 2) writeFile(sampleSet16b);
+//    else cout<<"We cannot write samples into file because the size of each sample is wrong\n";
+//}
 
 template <typename intn_t>
-void sound::writeFile(vector<intn_t> sampleSetN_t){
+void Sound::writeFile(vector<intn_t> sampleSetN_t, string pathFolder, string outFileName){
     FILE* outFile;
+    path = pathFolder + outFileName;
     outFile = fopen(path.c_str(), "wb");
     cout<<path<<endl;
-    dataChunk.subchunk2Size = (int16_t)(sampleSetN_t.size() * sampleSetN_t.size() * fmtChunk.bitsPerSample/8);
+    dataChunk.subchunk2Size = (sampleSetN_t.size() * sampleSetN_t.size() * fmtChunk.bitsPerSample/8);
     riffHeader.chunkSize = 4 + (8 + dataChunk.subchunk2Size) + (8 + fmtChunk.subchunk1Size);
     fwrite(&riffHeader, sizeof(riffHeader), 1, outFile);
     fwrite(&fmtChunk, sizeof(fmtChunk), 1, outFile);

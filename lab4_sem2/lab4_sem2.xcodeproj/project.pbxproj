@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4881251262DD5CE003548EF /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C488124F262DD5CE003548EF /* sound.cpp */; };
+		C4881251262DD5CE003548EF /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C488124F262DD5CE003548EF /* Sound.cpp */; };
 		FF52417D26240C090040D698 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF52417C26240C090040D698 /* main.cpp */; };
 		FF52418C262415700040D698 /* sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF52418A262415700040D698 /* sample.cpp */; };
+		FF524206262F26AE0040D698 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FF524204262F26AE0040D698 /* Interface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,12 +26,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C488124F262DD5CE003548EF /* sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sound.cpp; sourceTree = "<group>"; };
-		C4881250262DD5CE003548EF /* sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sound.hpp; sourceTree = "<group>"; };
+		C488124F262DD5CE003548EF /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
+		C4881250262DD5CE003548EF /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sound.hpp; sourceTree = "<group>"; };
 		FF52417926240C090040D698 /* lab4_sem2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lab4_sem2; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF52417C26240C090040D698 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FF52418A262415700040D698 /* sample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sample.cpp; sourceTree = "<group>"; };
 		FF52418B262415700040D698 /* sample.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sample.hpp; sourceTree = "<group>"; };
+		FF524204262F26AE0040D698 /* Interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Interface.cpp; sourceTree = "<group>"; };
+		FF524205262F26AE0040D698 /* Interface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Interface.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +67,10 @@
 			isa = PBXGroup;
 			children = (
 				FF52417C26240C090040D698 /* main.cpp */,
-				C488124F262DD5CE003548EF /* sound.cpp */,
-				C4881250262DD5CE003548EF /* sound.hpp */,
+				FF524204262F26AE0040D698 /* Interface.cpp */,
+				FF524205262F26AE0040D698 /* Interface.hpp */,
+				C488124F262DD5CE003548EF /* Sound.cpp */,
+				C4881250262DD5CE003548EF /* Sound.hpp */,
 				FF52418A262415700040D698 /* sample.cpp */,
 				FF52418B262415700040D698 /* sample.hpp */,
 			);
@@ -129,8 +134,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF52417D26240C090040D698 /* main.cpp in Sources */,
-				C4881251262DD5CE003548EF /* sound.cpp in Sources */,
+				C4881251262DD5CE003548EF /* Sound.cpp in Sources */,
 				FF52418C262415700040D698 /* sample.cpp in Sources */,
+				FF524206262F26AE0040D698 /* Interface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
