@@ -1,11 +1,3 @@
-//
-//  sample.cpp
-//  lab4_sem2
-//
-//  Created by Anatoliy Khramchenko on 12.04.2021.
-//
-
-
 #include "sample.hpp"
 
 template <typename T>
@@ -64,4 +56,3 @@ void Samples<T>::changeSampl(float n) {
         sampleSet16 = newSampleSet16;
     }
 }
-

@@ -1,9 +1,3 @@
-//
-//  sound.hpp
-//  lab4_sem2
-//
-//  Created by Берлинский Ярослав Владленович on 19.04.2021.
-//
 
 #ifndef sound_hpp
 #define sound_hpp
@@ -74,6 +68,22 @@ public:
     // reading audiofile
     void read();
     // here, you can insert <void print()> method
+    void write();
+    
+    template <typename intn_t>
+    void writeFile(vector<intn_t> sampleSetN_t);
+    void print(){
+            cout<<"\n\t===Reading RIFF-header===\n";
+            cout<<"ChunkID: "<<riffHeader.chunkId<<endl;
+            cout<<"Size of file(chunkSize+chunkSize&chunkID statements sizes): "<<riffHeader.chunkSize + sizeof(riffHeader.chunkSize) + sizeof(riffHeader.chunkId)<<endl;
+            cout<<"FormatID: "<<riffHeader.format<<endl;
+            cout<<"\n\t===Reading FMT-subchunk===\n";
+            cout<<"SubChunk1ID: "<<fmtChunk.subchunk1Id<<endl;
+            cout<<"SubChunk1 Size: "<<fmtChunk.subchunk1Size<<endl;
+            cout<<"Byterate: "<<fmtChunk.byteRate<<endl;
+            cout<<"SizeOfSample: "<<sizeOfSample<<endl;
+            cout<<"NumberOfSamples: "<<numberOfSamples<<endl;
+        }
 };
 
 
