@@ -23,10 +23,10 @@ void Interface::run() {
     float scale;
     cout << "Enter scale:";
     cin >> scale;
-    if (sound.sizeOfSample == 1) {
+    if (sound.sizeOfSample == 1) { //если 8байтовый размер
         samples8.changeSampl(scale);
         sound.swapVectors(samples8.getSample());
-    } else if(sound.sizeOfSample == 2) {
+    } else if(sound.sizeOfSample == 2) { //если 16байтовый размер
         samples16.changeSampl(scale);
         sound.swapVectors(samples16.getSample());
     } else {
@@ -34,4 +34,8 @@ void Interface::run() {
         exit(1);
     }
     sound.write(path, outFile);
+}
+
+void Interface::printMessage(string message) {
+    cout << message;
 }
