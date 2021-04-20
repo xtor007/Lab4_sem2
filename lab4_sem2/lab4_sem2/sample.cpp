@@ -1,3 +1,4 @@
+
 #include "sample.hpp"
 
 template <typename T>
@@ -56,3 +57,4 @@ void Samples<T>::changeSampl(float n) {
         sampleSet16 = newSampleSet16;
     }
 }
+

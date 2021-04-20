@@ -8,7 +8,6 @@
 #include "Interface.hpp"
 
 
-
 void Interface::run() {
     string path; string inFile; string outFile;
     cout << "Enter folder address:" << endl;
@@ -26,12 +25,13 @@ void Interface::run() {
     cin >> scale;
     if (sound.sizeOfSample == 1) {
         samples8.changeSampl(scale);
-        sound.writeFile<int8_t>(samples8.getSample(),path,outFile);
+        sound.swapVectors(samples8.getSample());
     } else if(sound.sizeOfSample == 2) {
         samples16.changeSampl(scale);
-        sound.writeFile<int16_t>(samples16.getSample(),path,outFile);
+        sound.swapVectors(samples16.getSample());
     } else {
         cout << "error" << endl;
         exit(1);
     }
+    sound.write(path, outFile);
 }

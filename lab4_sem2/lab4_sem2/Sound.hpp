@@ -53,9 +53,10 @@ class WaveReader{
 
 
 // class for track
+
 class Sound{
-public:
     // === Fields ===
+    friend class Interface;
     string path;
     int sizeOfSample;  // size of 1 sample (commonly, 1 or 2 bytes)
     int numberOfSamples; // number of samples in a track
@@ -66,16 +67,40 @@ public:
     SUBCHUNK2 dataChunk; // data is here
     
     //=== METHODS ===
+
+    template <typename intn_t>
+    void writeFile(vector<intn_t> sampleSetN_t, string pathFolder, string outFile);
     
     // reading audiofile
     void read(string pathFolder, string inFile);
     // here, you can insert <void print()> method
-    void write();
+    void write(string pathFolder, string outFileName);
     
     template <typename intn_t>
-    void writeFile(vector<intn_t> sampleSetN_t, string pathFolder, string outFile);
+    void swapVectors(vector<intn_t> vector){
+        switch (sizeOfSample) {
+            case 1:
+                sampleSet8b.resize(vector.size());
+                for (int i = 0; i < vector.size(); i++) {
+                    sampleSet8b[i] = vector[i];
+                }
+                break;
+            case 2:
+                sampleSet16b.resize(vector.size());
+                for (int i = 0; i < vector.size(); i++) {
+                    sampleSet16b[i] = vector[i];
+                }
+                break;
+            default:
+                cout<<"Error! Size of sample is: "<<sizeOfSample<<endl;
+                exit(1);
+                break;
+        }
+    }
+
 };
 
 
 
 #endif /* sound_hpp */
+

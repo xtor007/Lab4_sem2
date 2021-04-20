@@ -1,16 +1,17 @@
 #include "Sound.hpp"
 
-WaveReader::WaveReader(string path){ 
+WaveReader::WaveReader(string path){
 //        cout<<"Enter a path to your file: \n";
 //        getline(cin, directoryPath);
 //        cout<<"Enter a name of the file to read: \n";
 //        getline(cin, input);
 //        cout<<"Enter a name of the file to write: \n";
 //        getline(cin, output);
-        audiofile = fopen((path).c_str(), "rb"); 
+        audiofile = fopen((path).c_str(), "rb");
 //        cout<<"Your path is: "<<(directoryPath+input)<<endl;
         if (!audiofile) {
             //message.printMessage("We cannot open it!\n");
+            cout<<"Dont"<<endl;
             exit(1);
         }
 }
@@ -57,7 +58,6 @@ template <typename int_size> vector<int_size> WaveReader::getSampleSet(int16_t b
 void Sound::read(string pathFolder, string inFile){
     path = pathFolder + inFile;
     WaveReader readResult(path);
-    //path = readResult.directoryPath + readResult.output;
     riffHeader = readResult.getHeader();
     fmtChunk = readResult.getFMTdescription();
     dataChunk = readResult.getData();
@@ -69,11 +69,11 @@ void Sound::read(string pathFolder, string inFile){
             sampleSet16b = readResult.getSampleSet<int16_t>(fmtChunk.bitsPerSample, numberOfSamples);
 }
 
-//void Sound::write(){
-//    if (sizeOfSample == 1) writeFile(sampleSet8b);
-//    else if (sizeOfSample == 2) writeFile(sampleSet16b);
-//    else cout<<"We cannot write samples into file because the size of each sample is wrong\n";
-//}
+void Sound::write(string pathFolder, string outFileName){
+    if (sizeOfSample == 1) writeFile(sampleSet8b, pathFolder, outFileName);
+    else if (sizeOfSample == 2) writeFile(sampleSet16b,pathFolder, outFileName);
+    else cout<<"We cannot write samples into file because the size of each sample is wrong\n";
+}
 
 template <typename intn_t>
 void Sound::writeFile(vector<intn_t> sampleSetN_t, string pathFolder, string outFileName){
@@ -91,3 +91,5 @@ void Sound::writeFile(vector<intn_t> sampleSetN_t, string pathFolder, string out
     }
     fclose(outFile);
 }
+// /Users/yaroslav/Desktop/file/
+
