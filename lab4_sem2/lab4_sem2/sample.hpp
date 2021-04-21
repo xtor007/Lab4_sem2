@@ -19,6 +19,8 @@ class Samples {
     vector<T> getSample(); //возвращает семплы
     
     void changeSampl(float n); //интерполяция
+    
+    void enlargeSampl(int n);
 };
 
 

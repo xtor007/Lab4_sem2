@@ -21,13 +21,18 @@ void Interface::run() {
     Samples<int8_t> samples8(sound.sampleSet8b, 8);
     Samples<int16_t> samples16(sound.sampleSet16b, 16);
     float scale;
-    cout << "Enter scale:";
+    cout << "Enter scale: ";
     cin >> scale;
+    int repetitions;
+    cout << "Enter number of repetitions: ";
+    cin >> repetitions;
     if (sound.sizeOfSample == 1) { //если 8байтовый размер
         samples8.changeSampl(scale);
+        samples8.enlargeSampl(repetitions);
         sound.swapVectors(samples8.getSample());
     } else if(sound.sizeOfSample == 2) { //если 16байтовый размер
         samples16.changeSampl(scale);
+        samples16.enlargeSampl(repetitions);
         sound.swapVectors(samples16.getSample());
     } else {
         cout << "error" << endl;

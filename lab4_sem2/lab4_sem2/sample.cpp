@@ -57,3 +57,26 @@ void Samples<T>::changeSampl(float n) {
     }
 }
 
+
+template <typename T>
+void Samples<T>::enlargeSampl(int n) {
+    vector<T> newSamples;
+    for (int i=0; i<n; i++) {
+        if (typeOfSampl == 8) {
+            for (int j=0; j<sampleSet8.size(); j++) {
+                newSamples.push_back(sampleSet8[j]);
+            }
+        } else {
+            for (int j=0; j<sampleSet16.size(); j++) {
+                newSamples.push_back(sampleSet16[j]);
+            }
+        }
+    }
+    
+    if (typeOfSampl == 8) {
+        sampleSet8 = newSamples;
+    } else {
+        sampleSet16 = newSamples;
+    }
+}
+
